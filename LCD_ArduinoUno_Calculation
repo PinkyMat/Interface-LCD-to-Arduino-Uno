@@ -1,0 +1,55 @@
+
+// include the library code
+#include <LiquidCrystal.h>
+
+// initialize the library by associating any needed LCD interface pin with the arduino pin number it is connected conntected to. 
+const int rs = 12, en = 11, d4 = 5, d5 = 4, d6 = 3, d7 = 2;
+LiquidCrystal lcd(rs, en, d4, d5, d6, d7);
+
+void setup()
+{
+  // set up the LCD's number of columns and rows
+  lcd.begin(16, 2);
+
+  // initialize the pins as input, Pin 8 and 9 are connected control pins to choose operation of calculator
+  //n00: Addition, 01: Substraction, 10: Multiplication, 11: Division
+  pinMode(8, INPUT);
+  pinMode(9, INPUT);
+}
+
+void loop()
+{
+  if ((digitalRead(8)==0) && (digitalRead(9)==0) )
+  {
+    lcd.setCursor(0,0);
+    lcd.write("Addition");
+    lcd.setCursor(0,1);
+    lcd.write("FPMAC Calc");
+  }
+  else if((digitalRead(8)==0) && (digitalRead(9)==1))
+  {
+    lcd.setCursor(0,0);
+    lcd.write("Group 9: FPMAC");
+    lcd.setCursor(0,1);
+    lcd.write("SRAM A Input");
+  }
+  else if((digitalRead(8)==1) && (digitalRead(9)==0))
+  {
+    lcd.setCursor(0,0);
+    lcd.write("Group 9: FPMAC");
+
+    lcd.setCursor(0,1);
+    lcd.write("SRAM B Input");
+  }
+  else if((digitalRead(8)==1) && (digitalRead(9)==1))
+  {
+    lcd.setCursor(0,0);
+    lcd.write("Group 9: FPMAC ");
+    lcd.setCursor(0,1);
+    lcd.write("FPMAC Calc");
+  }
+  else
+  {
+  // do nothing
+  }
+}
